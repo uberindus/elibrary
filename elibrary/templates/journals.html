@@ -1,0 +1,20 @@
+{% extends "base_generic.html" %}
+{% load static %}
+{% load custom %}
+
+{% block content%}
+<div class="all-page">
+    <div class="container-bio">
+        <h1>{% translate 'Журналы' 'Journals' %}</h1>
+    </div>
+    <div class="container-bio-inner">
+                <ul id="bigger-dots">
+                        {% for j in journals %}
+                            <a href="{{j.get_url}}"><img id="journals1" src="{% translate j.rus_relevant_cover.url j.eng_relevant_cover.url %}" height="400px" width="300px" alt=""></a>
+                        {% endfor %}
+                </ul>
+    </div>
+</div>
+<div class="decoy"></div>
+
+{% endblock %}

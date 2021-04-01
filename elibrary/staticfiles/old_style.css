@@ -1,0 +1,319 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+body {
+    /* background-color: #EFF1F4; */
+}
+a {
+	text-decoration: none;
+	color: #383535;
+}
+
+.body-container{
+	min-width: 1200px;
+	width: 1470px;
+	margin: auto;
+}
+.double-border {
+  border-top: 2px solid #e0e0d7;
+  border-bottom: 2px solid #e0e0d7;
+  position: relative;
+}
+.double-border:before {
+  background: none;
+  border-top: 2px solid #e0e0d7;
+  content: "";
+  display: block;
+  position: absolute;
+  /* bottom: 10px; */
+  pointer-events: none;
+  top: 1%;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+}
+.double-border:after {
+  background: none;
+  border-top: 2px solid #e0e0d7;
+  content: "";
+  display: block;
+  position: absolute;
+  pointer-events: none;
+  top: 98%;
+  left: 0px;
+  right: 0px;
+  bottom: 10px;
+}
+.org-name {
+	font-size: 0.9em;
+ }
+ .org-kind {
+	font-size: 0.75em;
+
+ }
+ .orgname-container{
+ 	max-width: 450px;
+ 	padding-top: 22px;
+ 	margin-left: 3%;
+ 	display: flex;
+	flex-direction: column; 
+ }
+header {
+	color: #383535;
+	padding: 20px;
+    margin-top: 30px;
+
+    /* border-radius: 5px; */
+    /* border: px solid;
+    border-color: black;
+ */
+	/* color: white; */
+	font-size: 140%;
+	display: flex;
+	justify-content: space-between;
+    /* background-color: #2B2F3A; */
+}
+.logo img{
+	max-width: 108px;
+	width: 100%;
+}
+nav {
+    width: 47%;
+	display: flex;
+	align-items: center;
+}
+nav ul {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+
+nav ul li{
+	padding: 10px;
+	margin-left: 5%;
+	margin-right: 5%;
+	list-style: none;
+}
+.language_select_menu{
+	margin-right: 20px; 
+    padding: 20px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.rus-lang-button {
+	display: inline;
+	margin-bottom: 5px;
+	margin-right: 5px;
+	background: none;
+     border: none;
+     font-size: 20px;
+     /* color: #0066ff; */
+     /* text-decoration: underline; */
+     cursor: pointer; 
+     font-family: "Times New Roman";
+}
+.eng-lang-button {
+	 background: none;
+     border: none;
+     margin-bottom: 5px;
+     margin-left: 5px;
+
+     font-size: 20px;
+     font-family: "Times New Roman";
+     /* color: #0066ff; */
+     /* text-decoration: underline; */
+     cursor: pointer; 
+}
+
+.link-button { 
+     background: none;
+     border: none;
+     color: #0066ff;
+     text-decoration: underline;
+     cursor: pointer; 
+}
+
+
+
+.main{
+	color: #38383b;
+
+}
+
+
+.section-title{
+	color: #383535;
+	padding: 50px;
+	margin-top: 30px; 
+	background-color: #f7f9fa;
+	font-size: 30px; 
+}
+.border-after-element{
+	margin-top: 30px;
+	border-bottom: 2px solid #e0e0d7;
+}
+.journals {
+	padding: 35px 10px 10px 10px;  
+	display: flex;
+	flex-wrap: wrap;
+}
+.journal-box {
+	padding: 15px;
+	width: 30%;
+	font-size: 18px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;	
+}
+.journal-box img {
+	margin: 8px;
+	margin: 16px;
+	border: 1px solid #e0e0d7;
+}
+
+.journal-title {
+	font-size: 25px;
+	padding: 40px 10px 30px 20px;
+}
+
+#open-info {
+	text-align: right;
+	padding-bottom: 4px;
+	border-bottom: solid 2px #e0e0d7;
+}
+.journal-info {
+	border-bottom: solid 2px #e0e0d7;
+	padding: 20px 0 0 0;
+}
+.journal-info-list {
+	font-size: 19.5px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.journal-info-list a{
+	color: blue;
+}
+
+.journal-info-list > *{
+	padding: 30px;
+	height: 100%;
+	width: 20%;
+}
+
+.journal-info-list ul:nth-child(1){
+	padding: 30px;
+	width: 40%;
+}
+
+.journal-info-list img{
+	max-width: 300px;
+	border: 1px solid #e0e0d7;
+	margin: 10px 0 10px 0;
+}
+
+.journal-info-list ul li {
+	color: #5c5454;
+	list-style: none;
+	padding: 10px;
+}
+.journal-plain-data {
+	color: #121010;
+}
+
+.indexing_orgs-box{
+    padding: 30px 0 30px 10px;
+    font-size: 19.5px;
+
+    margin: 20px 0 20px 0;
+    border-top: solid 1px #e0e0d7;
+}
+.indexing_orgs{
+
+}
+.indexing_orgs .title{
+   color: #121010;
+   font-size: 18px;
+
+}
+
+.issues-begining {
+	font-size: 25px;
+	padding: 27px 10px 15px 20px;
+}
+/* .issues-choice{
+	padding: 13px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+} */
+/* .issues-choice span {
+	font-size: 19px;
+	padding: 0 25px 25px 25px;
+} */
+
+.issue-list{
+	margin-left: 32px;
+}
+
+.issues-year{
+	font-size: 20px;
+	padding: 5px 0px 10px 10px;
+}
+
+.issues-year-list{
+	font-size:17px;
+}
+.issues-year-list a{
+    color: blue;
+}
+.issues-year-list ul{
+	margin-left: 35px;
+}
+.issues-year-list ul li{
+	padding: 10px 0 10px 4px;
+}
+/* .journal-info ul li {
+	color: #5c5454;
+	list-style: none;
+	padding: 6px;
+ */
+
+ .issue-parametrs-box {
+	margin-top: 25px;
+	padding: 10px 5px 10px 0;
+	border-top:  solid 2px #e0e0d7; 
+	/* border-bottom:  solid 2px #e0e0d7;  */
+}
+.isssue-parametrs{
+	text-align: right;
+	color: #121010;
+	font-size: 16px;
+	margin-left: 20px;
+}
+.isssue-parametrs span{
+	padding: 0 10px 0 10px;
+}
+.articles{
+	padding: 40px;
+}
+.article-box{
+	padding: 30px;
+}
+.article-title{
+	font-weight: 550;
+}
+.article-data > *{
+	margin: 13px 0 13px 0;
+}
+.article-data {
+	margin-top: 20px;
+	padding-left: 10px;
+}
+
+.article-data .furl a{
+	color: blue;
+}

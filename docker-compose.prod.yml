@@ -1,0 +1,44 @@
+version: '3.7'
+
+services:
+
+  web:
+    build:
+      context: ./elibrary
+      dockerfile: Dockerfile.prod
+    command: gunicorn elibrary.wsgi:application --bind 0.0.0.0:8000
+    volumes:
+      - static_volume:/home/app/web/prod_staticfiles
+      - media_volume:/home/app/web/mediafiles
+      - gunicorn_logs:/home/app/web/logs
+      - dumps:/home/app/web/parsing/dumps
+      - ./elibrary/parsing/journals:/home/app/web/parsing/journals
+      - ./elibrary/parsing/reports:/home/app/web/parsing/reports
+    expose:
+      - 8000
+    env_file:
+      - ./.env.prod
+    depends_on:
+      - db
+  db:
+    image: mysql:5.7
+    volumes:
+      - mysql_data:/var/lib/mysql
+    env_file:
+      - ./.env.prod.db
+  nginx:
+    build: ./nginx
+    volumes:
+      - static_volume:/home/app/web/staticfiles
+      - media_volume:/home/app/web/mediafiles
+    ports:
+      - 80:80
+    depends_on:
+      - web
+
+volumes:
+  mysql_data:
+  static_volume:
+  media_volume:
+  gunicorn_logs:
+  dumps:

@@ -1,0 +1,34 @@
+{% extends "base_generic.html" %}
+{% load static %}
+{% load custom %}
+{% block content%}
+	<div class="container2">
+		<h1>{% translate 'Материалы ведущих академических журналов и научных мероприятий' 'Materials of leading academic journals and scientific events' %}</h1>
+		<div class="choosing">
+			<div class="choose-him">
+				<h1>{% translate 'Химия' 'Chemistry' %}</h1>
+				<div class="highlighter">
+					<div class="background-blue">
+						<a href="{% url 'rubric_catalog' %}?rubric=chm "><div class="choose-him-img"></div></a>
+					</div>
+				</div>
+			</div>
+			<div class="choose-bio">
+				<h1>{% translate 'Биология' 'Biology' %}</h1>
+				<div class="highlighter">
+					<div class="background-blue">
+						<a href="{% url 'rubric_catalog' %}?rubric=blg"><div class="choose-bio-img"></div></a>
+					</div>
+				</div>
+			</div>
+			<div class="choose-fiz">
+				<h1>{% translate 'Физиология' 'Physiology' %}</h1>
+				<div class="highlighter">
+					<div class="background-blue">
+						<a href="{% url 'rubric_catalog' %}?rubric=phl"><div class="choose-fiz-img"></div></a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

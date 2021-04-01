@@ -1,0 +1,38 @@
+{% extends "old_base_generic.html"%}
+{% block content%}
+    <div class="journal-title">
+        {{issue.journal.rus_title}}
+    </div>
+<div class="issue-parametrs-box"><div class="isssue-parametrs"> Выпуск: <span>Год - {{issue.dateUni}} </span> | <span>Том - {{issue.volume}}</span> | <span>Номер - {{issue.number}}</span> </div></div>
+<div class="articles">
+    {% for a in issue.articles.all %}
+        <div class="article-box">
+            <div class="article-title">{{a.rus_title}}</div>
+            <div class="article-data">
+                <h4>Аннотация:</h4>
+                <p>
+                    {{a.rus_annotation | safe}}
+                </p>
+                <div class="authors">
+                    <b>Авторы:</b>
+                    {% for author in a.authors.all %}
+                        <span>{{author.rus_surname}}</span>
+                        {% if forloop.last %}
+                            <span>{{author.rus_initials}}</span>
+                        {% else %}
+                            <span>{{author.rus_initials}},</span>
+                        {% endif %}
+                    {% endfor%}
+                </div>
+                <div class="keywors"><b>Ключевые слова</b>:
+                    {% for k in a.keywords.all %}
+                        <span>{{k}},</span>
+                    {% endfor%}
+                </div>
+                <div class="fname"><a href="{{a.pdf.url}}"><b>Скачать файл</b></a></div>
+                <div class="furl"><b>Elibrary</b>: <a href="{{a.furl}}">{{a.furl}}</a></div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

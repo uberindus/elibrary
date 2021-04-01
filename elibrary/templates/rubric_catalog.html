@@ -1,0 +1,41 @@
+{% extends "base_generic.html" %}
+
+{% block content%}
+{% load static %}
+{% load custom %}
+
+<div class="all-page">
+    {% if rubric == "chm" %}
+        <div class="container-bio">
+            {% translate '<h1>Тематическое направление<br>"Химия"</h1>' '<h1>Thematic area<br>"Chemistry"</h1>' %}
+        </div>
+    {% elif rubric == "blg" %}
+        <div class="container-bio">
+            {% translate '<h1>Тематическое направление<br>"Биология"</h1>' '<h1>Thematic area<br>"Biology"</h1>' %}
+        </div>
+    {% elif rubric == "phl" %}
+        <div class="container-bio">
+            {% translate '<h1>Тематическое направление<br>"Физиология"</h1>' '<h1>Thematic area<br>"Physiology"</h1>' %}
+        </div>
+    {% endif%}
+        <div class="container-bio-inner">
+            <ul id="bigger-dots">
+                {% for j in journals %}
+                    <a href="{{j.get_url}}"><img id="journals1" src="{{j.rus_relevant_cover.url}}" height="400px" width="300px" alt=""></a>
+                {% endfor %}
+                <li id="list-text">{% translate 'Научные мероприятия - доклады' 'Scientific events - reports' %}</li>
+                    {% for e in events %}
+<!--                        Потом поменять, чтобы для каждого эвента была своя картинка из медиа-->
+                        <a href="{{e.get_url}}?rubric={{rubric}}"><img id="mendeleev-img" src="{% static 'img/s1-s1cHC9pg.jpg' %}"></a>
+                    {% endfor %}
+                <li id="list-text">{% translate 'Видеозаписи' 'Video lectures' %}</li>
+                    <div class="video-collage">
+                        <a href="{% url 'videos' %}?rubric={{rubric}}"><img src="{% static 'img/catalog_video_1.jpg' %}" width="400" height="266.66" alt=""></a>
+                        <a href="{% url 'videos' %}?rubric={{rubric}}"><img src="{% static 'img/catalog_video_2.jpg' %}" width="400" height="266.66" alt=""></a>
+                        <a href="{% url 'videos' %}?rubric={{rubric}}"><img src="{% static 'img/catalog_video_3.jpg' %}" width="400" height="266.66" alt=""></a>
+                    </div>
+            </ul>
+        </div>
+</div>
+<div class="decoy"></div>
+{% endblock %}

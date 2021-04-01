@@ -1,0 +1,103 @@
+{% extends "base_generic.html" %}
+{% load static %}
+{% load custom %}
+{% block content%}
+
+	<div class="preview">
+		<div class="preview-imgs">
+			<div class="organisations-logos">
+				<img id="organisations-logos1" src="{% static 'img/sector_sc_iypt_ru.jpg' %}" alt="logo-1">
+				<img id="organisations-logos2" src="{% static 'img/us8rOlsZu6M.jpg' %}" alt="logo-3">
+			</div>
+			<div class="lecture-img">
+				<img id="lecture-img" src="{% static 'img/image0.gif' %}" alt="">
+			</div>
+		</div>
+		<div class="description">
+			<div class="description-text">
+				<p>Коллекция тезисов докладов XXI Менделеевского съезда по общей и прикладной химии, котрорый состоялся с 9 по 13 сентября 2019 года в Санкт-Петербурге - одно из основных мероприятий Международного года Периодической таблицы химических элементов, провозглашённого в ООН в декабре 2017 г. под эгидой Международного союза по теоретической и приикладной химиии (IUPAC).<br>
+				- тезисы на английском и русском языках<br>
+				- пленарные доклады выдающихся зарубежных ученых и членов Российской академии наук по основным направлениям химической науки, образования, новым технологиям, историческим аспектам</p>
+			</div>
+		</div>
+	</div>
+
+	<div class="switch-rubricks">
+			<div id="switch-him" class="choose-him">
+				<a href="{% url 'event_details' event.pk %}?rubric=chm"><h1>{% translate 'Химия' 'Chemistry' %}</h1></a>
+			</div>
+			<div id="switch-bio" class="choose-bio">
+				<a href="{% url 'event_details' event.pk %}?rubric=blg"><h1>{% translate 'Биология' 'Biology' %}</h1></a>
+			</div>
+			<div id="switch-fiz" class="choose-fiz">
+				<a href="{% url 'event_details' event.pk %}?rubric=phl"><h1>{% translate 'Физиология' 'Physiology' %}</h1></a>
+			</div>
+	</div>
+
+	<div id="test-design" class="container1">
+		<h1>{% translate 'Список докладов' 'Reports list' %}</h1>
+		<div class="event-details">
+
+			{% for r in page %}
+				<div class="specific-event">
+
+					<h3>{{page.start_index|add:forloop.counter0}}.
+						<a target='_blank' class="event-links" href="{{ r.pdf.url }}">{% default_translate r.rus_title r.eng_title r.eng_title r.rus_title %}</a>
+					</h3>
+					<p><span>{% translate 'Авторы' 'Authors' %}:</span>
+					{% for a in r.authors.all %}
+						<span>{% default_translate a.rus_surname a.eng_surname a.eng_surname a.rus_surname %}</span>
+						{% if forloop.last %}
+							<span>{% default_translate a.rus_initials a.eng_initials a.eng_initials a.rus_initials %}</span>
+                        {% else %}
+                            <span>{% default_translate a.rus_initials a.eng_initials "" "" %},</span>
+                        {% endif %}
+					{% endfor %}
+					</p>
+					<p><span>{% translate 'Язык публикации' 'Publication lang' %}:</span> {{ r.langPubl }} </p>
+					<p><span>{% translate 'Скачать' 'Download' %}:</span> <a target='_blank' href="{{ r.pdf.url }}"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a></a></p>
+				</div>
+			{% endfor %}
+
+			<div class="paginator">
+
+
+				{% if page.has_previous %}
+					<a href="?page={{ page.previous_page_number }}&rubric={{rubric}}"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
+				{% else %}
+    				<a href="" aria-hidden="true"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
+				{% endif %}
+
+				{% if page.number|add:'-4' > 1 %}
+					<a href="?page=1&rubric={{rubric}}">1</a>
+				{% endif %}
+
+				{% if page.number|add:'-4' > 1 %}
+					<a href="?page={{ page.number|add:'-5' }}&rubric={{rubric}}">&hellip;</a>
+				{% endif %}
+				{% for i in page.paginator.page_range %}
+					{% if page.number == i %}
+						<a class="current" >{{ i }}</a>
+					{% elif i > page.number|add:'-5' and i < page.number|add:'5' %}
+						<a href="?page={{ i }}&rubric={{rubric}}">{{ i }}</a>
+					{% endif %}
+				{% endfor %}
+
+				{% if page.paginator.num_pages > page.number|add:'4' %}
+					<a href="?page={{ page.number|add:'5' }}&rubric={{rubric}}">&hellip;</a>
+				{% endif %}
+
+				{% if page.number|add:'4' < paginator.num_pages %}
+					<a href="?page={{paginator.num_pages}}&rubric={{rubric}}">{{paginator.num_pages}}</a>
+				{% endif %}
+
+				{% if page.has_next %}
+					<a  href="?page={{ page.next_page_number }}&rubric={{rubric}}"><i class="fa fa-chevron-right" aria-hidden="true"></i></span></a>
+				{% endif %}
+
+			</div>
+
+		</div>
+	</div>
+
+{% endblock %}

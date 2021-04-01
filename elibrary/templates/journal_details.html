@@ -1,0 +1,160 @@
+
+{% extends "base_generic.html" %}
+{% load static %}
+{% load custom %}
+{% block content%}
+
+	<div id="container-journal-info" class="container1">
+		<div class="journal-publ">
+			<div class="journal-info-list1">
+	            <ul>
+	                <li>
+	                    {%translate 'Издательство' 'Publisher' %}:
+						<span class="journal-plain-data">{% translate last_pub.rus_org_title last_pub.eng_org_title %}</span>
+	                </li>
+	                <li>
+						{%translate 'Главный редактор' 'Main editor' %}:
+						<span class="journal-plain-data">{% translate last_pub.rus_main_editor last_pub.eng_main_editor %}</span>
+	                </li>
+	                <li>
+	                    {%translate 'Сайт издателя' 'Publisher site' %}:
+	                    <span class="journal-plain-data"><a href="//{{last_pub.site_url}}"> {{last_pub.site_url}} </a></span>
+	                </li>
+	                <li>
+	                    {%translate 'Год основания' 'Data of foundation' %}:
+	                    <span class="journal-plain-data">{{last_pub.date_foundation}}</span>
+	                </li>
+	                <li>ISSN-Online: <span class="journal-plain-data">{{last_pub.issn_print}}</span></li>
+	                <li>ISSN-Print: <span class="journal-plain-data">{{last_pub.issn_online}}</span></li>
+	            </ul>
+	        </div>
+	        <div class="journal-info-list2">
+				<ul>
+					{% if request.session.lang == "RUS" %}
+					<li>
+						Impact Factor РИНЦ:
+						<span class="journal-plain-data"> {{last_pub.rinc_impact_factor}}</span>
+
+					</li>
+					{% endif %}
+					{% if request.session.lang == "ENG" %}
+					<li>
+						SCImago Journal Rank:
+						<span class="journal-plain-data"> {{last_pub.scimago_journal_rank}}</span>
+					</li>
+					{% endif %}
+					<li>{% if request.session.lang == "RUS" %}
+						Impact Factor ISI:
+						<span class="journal-plain-data">  </span>
+						{% else %}
+						Impact Factor ISI:
+						<span class="journal-plain-data"> {{last_pub.isi_impact_factor}}</span>
+						{% endif %}
+					</li>
+					<li>{% if request.session.lang == "RUS" %}
+						Год основания:
+						{% else %}
+						Data of foundation:
+						{% endif %}
+						<span class="journal-plain-data"> {{last_pub.date_foundation}}</span>
+					</li>
+					<li>{% if request.session.lang == "RUS" %}
+						Периодичность:
+						{% else %}
+						Periodicity:
+						{% endif %}
+						<span class="journal-plain-data"> {{last_pub.pereodicity}}</span>
+					</li>
+					<li>{% if request.session.lang == "RUS" %}
+						Выпусков:
+						{% else %}
+						Issues:
+						{% endif %}
+						<span class="journal-plain-data"> {{n_issues}}</span>
+					</li>
+					<li>{% if request.session.lang == "RUS" %}
+						Статей:
+						{% else %}
+						Articles:
+						{% endif %}
+						<span class="journal-plain-data"> {{n_articles}}</span>
+					</li>
+				</ul>
+	        </div>
+			<div class="journal-thumb"><img src="{{last_pub.cover.url}}" width="100px" height="200px" alt=""></div>
+		</div>
+		<div class="volumes-lists">
+			<h2 id="testing-js">Выпуски</h2>
+
+				<section class="journal-dropdown">
+					<div class="dropdown">
+						<select id="year_select" name="one" class="dropdown-select" onchange="change_year(this)">
+							<option value="" disabled>Год</option>
+							{% for y in years %}
+								<option value="{{y}}" {% if  forloop.first %} selected {% endif %}>{{y}}</option>
+							{% endfor %}
+				    	</select>
+				  	</div>
+				  	<div class="dropdown">
+				    	<select id="volume_select" name="two" class="dropdown-select" onchange="change_volume(this)">
+							<option value="" disabled>Том</option>
+							{% for v in volumes %}
+								<option value="{{v}}" {% if  forloop.first %} selected {% endif %}>{{v}}</option>
+							{% endfor %}
+				    	</select>
+				  	</div>
+				  	<div class="dropdown">
+				    	<select id="number_select" name="three" class="dropdown-select" onchange="change_number(this)">
+				      		<option value="" disabled selected>Номер</option>
+							{% for n in numbers %}
+								<option value="{{n}}" {% if  forloop.first %} selected {% endif %}>{{n}}</option>
+							{% endfor %}
+				    	</select>
+				    </div>
+				</section>
+		</div>
+	</div>
+	<div class="container1">
+		<div class="reports">
+    		<div class="event-details" id="event-details">
+				{% for a in articles %}
+					<div id="option_result" class="search-event specific-event">
+						<h3><a target='_blank' href="{{a.pdf.url}}">
+							{% default_translate a.rus_title a.eng_title a.eng_title a.rus_title %}
+						</a></h3>
+						<p><b>{% translate 'Аннотация' 'Annotation' %}:</b></p>
+						<p id='annotation-text'>
+							{% autoescape off %}
+							{% default_translate a.rus_annotation a.eng_annotation a.eng_annotation a.rus_annotation ""%}
+							{% endautoescape %}
+						</p>
+						<p><b>{% translate 'Авторы' 'Authors' %}: </b>
+							{% for author in a.authors.all %}
+								{% default_translate author.rus_surname author.eng_surname author.eng_surname author.rus_surname ""%}
+								 {% default_translate author.rus_initials author.eng_initials author.eng_initials author.rus_initials ""%},
+							{% endfor %}
+						</p>
+						<p><b>{% translate 'Ключевые слова' 'Keywords' %}: </b>
+							{% for k in a.keywords.all %}
+								{{k}},
+							{% endfor%}
+						</p>
+						<p><b>{% translate 'Скачать файл' 'Download' %}: </b><a target='_blank' href="{{a.pdf.url}}"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a></p>
+						<p><b>Elibrary: </b><a target='_blank' href="{{ article.furl }}">{{  a.furl|default:"" }}</a></p>
+					</div>
+				{% endfor %}
+    		</div>
+    	</div>
+	</div>
+	<script>
+		var lang = "{{lang}}"
+		var journal_id = {{journal.pk}}
+
+		document.getElementById("year_select").options[1].selected = true;
+		document.getElementById("volume_select").options[1].selected = true;
+		document.getElementById("number_select").options[1].selected = true;
+	</script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="{% static 'js/journal_details.js' %}"></script>
+
+{% endblock %}

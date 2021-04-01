@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+{% load custom %}
+<head>
+	<meta charset="UTF-8">
+	<title>{% translate 'ФизХимБио архив' 'Chemistry Biology Physiology archive' %}</title>
+	<link rel="stylesheet" href="{% static 'style.css' %}">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+</head>
+<body>
+	<header>
+		<div class="wrapper">
+			<div class="gerb-rf">
+				<img src="{% static 'img/06_Bolee_35_mm_po_vysote_v_formate_PNG.png' %}" height="100px" width="100px" alt="">
+			</div>
+			<div class="header-text">
+				<p id="min-nayk">{% translate 'МИНИСТЕРСТВО НАУКИ<br>И ВЫСШЕГО ОБРАЗОВАНИЯ<br>РОССИЙСКОЙ ФЕДЕРАЦИИ' 'Ministry of science <br>and Higher Education of Russia' %}</p>
+				<a id="go-home" href="{% url 'index' %}"><h1>{% translate 'Химия, биология и физиология<br><span class="lower-title">Электронный архив научных журналов</span>' 'CHEMISTRY. BIOLOGY. PHYSIOLOGY<br><span class="lower-title">Digital library of academic journals</span>' %}</h1></a>
+			</div>
+			<div class="header-translate">
+
+					<form action="{% url 'switch_lang'%}" method="post">
+	                    {% csrf_token %}
+	                    <input name="next" type="hidden" value="{{request.get_full_path}}">
+						<input name="lang" type="submit" class="rus-lang-button" value="RUS">
+					</form>
+	                <form action="{% url 'switch_lang'%}" method="post">
+	                    {% csrf_token %}
+	                    <input name="next" type="hidden" value="{{request.get_full_path}}">
+						<input name="lang" type="submit" class="eng-lang-button" value="ENG">
+                	</form>
+			</div>
+
+               
+
+		</div>
+		<div class="start-nav">
+			<div class="included">
+				<div class="title">
+					<h1>{% translate 'Наука для будущего' 'Science for future' %}</h1>
+				</div>
+				<div id="last-title" class="title">
+					<h4 id="start-nav-title">{% translate 'открытое информационное пространство научных изданий' 'Open science academic knowledge Space' %}</h4>
+				</div>
+				<div class="d1">
+					<form id="form" action="{% url 'search' %}" method="get">
+						<input
+								name="search_string"
+								type="text"
+							   	placeholder="{% translate 'Поиск по публикациям, статьям, ключевым словам' 'Search publications, articles, keywords, etc.' %}"
+						>
+						<input name="next" type="hidden" value="{{request.get_full_path}}">
+						<button type="submit"></button>
+					</form>
+				</div>
+				<div class="nav-list">
+					<ul class="nav-list">
+						<a id="list-links" href="{% url 'index' %}"><li>{% translate 'Главная' 'Home' %}</li></a>
+						<a id="list-links" href="{% url 'about' %}"><li>{% translate 'Об Архиве' 'About the Library' %}</li></a>
+						<a id="list-links" href="{% url 'journals' %}"><li>{% translate 'Журналы' 'Journals' %}</li></a>
+						<a id="list-links" href="{% url 'rubricator' %}"><li>{% translate 'Рубрикатор' 'Subject directory' %}</li></a>
+						<a id="list-links" href="{% url 'news' %}"><li>{% translate 'Новости' 'News' %}</li></a>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</header>
+      
+    {% block content %}{% endblock %}
+
+	<footer class="footer">
+		<div class="footer-imgs">
+			<a href="http://www.ras.ru/"><img id="img-footer1" src="{% static 'img/ras_logo.jpg' %}" height="70px" width="220px" alt=""></a>
+			<a href="http://phyche.ac.ru/"><img id="img-footer" src="{% static 'img/ifh.png' %}" height="70px" width="65px" alt=""></a>
+			<a href="http://ips.ac.ru/"><img id="img-footer" src="{% static 'img/inshran.png' %}" height="70px" width="70px" alt=""></a>
+			<a href="http://www.chemsoc.ru/"><img id="img-footer" src="{% static 'img/rho.png' %}" height="70px" width="70px" alt=""></a>
+			<a href="https://www.elibrary.ru/defaultx.asp"><img id="img-footer1" src="{% static 'img/elibrary.jpg' %}" height="70px" width="220px" alt="а"></a>
+		</div>
+		<div class="social-links">
+			<div class="vk-icon"><a href="https://vk.com/public200215704"><i class="fa fa-vk" aria-hidden="true"></i></a></div>
+			<div class="facebook-icon"><a href="https://www.facebook.com/Химия-биология-и-физиология-102568515018383/"><i class="fa fa-facebook" aria-hidden="true"></a></i></div>
+			<div class="mail-link"><a href="#" target="_blank">info@physchembio.ru</a></div>
+		</div>
+	</footer>
+</body>
+</html>

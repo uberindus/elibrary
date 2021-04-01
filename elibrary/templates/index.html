@@ -1,0 +1,16 @@
+{% extends "base_generic.html" %}
+{% load static %}
+{% load custom %}
+{% block content%}
+		<div class="container">
+			<div class="content-img">
+				<img id="content-img" src="{% static 'img/flasks.jpg' %}" alt="">
+			</div>
+			<div class="content-text">
+
+				<h1>{% translate '20000+ научных публикаций' '20000+ scientific publication' %}</h1>
+				<h1>{% translate '2000+ научных докладов' '2000+ scientific reports' %}</h1>
+				<h1>{% translate '300+ видеолекций' '300+ video lectures' %}</h1>
+			</div>
+		</div>
+{% endblock %}

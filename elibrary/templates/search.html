@@ -1,0 +1,96 @@
+{% extends "base_generic.html" %}
+{% load custom %}
+{% load custom %}
+{% block content%}
+
+    <div class="container1 search-container">
+    	<div class="search_header">
+    		<h2>Поиск: </h2>
+			<form action="{% url 'search' %}" method="get">
+    			<input  name="search_string" type="search" id="search" placeholder="Введите свой запрос..."/>
+			</form>
+    	</div>
+
+		{% if articles %}
+    	<h1 id="first_header">Статьи</h1>
+    	<div class="reports">
+    		<div class="event-details">
+				{% for a in articles %}
+					<div class="search-event specific-event">
+						<h3><a target='_blank' href="{{a.pdf.url}}">
+							{% default_translate a.rus_title a.eng_title a.eng_title a.rus_title %}
+						</a></h3>
+						<p><b>{% translate 'Аннотация' 'Annotation' %}:</b></p>
+						<p>
+							{% autoescape off %}
+							{% default_translate a.rus_annotation a.eng_annotation a.eng_annotation a.rus_annotation ""%}
+							{% endautoescape %}
+						</p>
+						<p><b>{% translate 'Авторы' 'Authors' %}: </b>
+							{% for author in a.authors.all %}
+								{% default_translate author.rus_surname author.eng_surname author.eng_surname author.rus_surname ""%}
+								 {% default_translate author.rus_initials author.eng_initials author.eng_initials author.rus_initials ""%},
+							{% endfor %}
+						</p>
+						<p><b>{% translate 'Ключевые слова' 'Keywords' %}: </b>
+							{% for k in a.keywords.all %}
+								{{k}},
+							{% endfor%}
+						</p>
+						<p><b>{% translate 'Скачать файл' 'Download' %}: </b><a target='_blank' href="{{a.pdf.url}}"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a></p>
+						<p><b>Elibrary: </b><a target='_blank' href="{{ article.furl }}">{{ a.furl}}</a></p>
+					</div>
+				{% endfor %}
+    		</div>
+    	</div>
+		{% endif %}
+
+		{% if reports %}
+		<h1>Доклады</h1>
+		<div class="issues">
+    		<div class="event-details">
+    			{% for r in reports %}
+				<div class="specific-event">
+					<h3>{{forloop.counter}}.
+						<a target='_blank'  class="event-links" href="{{ r.pdf.url }}">{% default_translate r.rus_title r.eng_title r.eng_title r.rus_title %}</a>
+					</h3>
+					<p><span>{% translate 'Авторы' 'Authors' %}:</span>
+					{% for a in r.authors.all %}
+						<span>{% default_translate a.rus_surname a.eng_surname a.eng_surname a.rus_surname %}</span>
+						{% if forloop.last %}
+							<span>{% default_translate a.rus_initials a.eng_initials a.eng_initials a.rus_initials %}</span>
+                        {% else %}
+                            <span>{% default_translate a.rus_initials a.eng_initials "" "" %},</span>
+                        {% endif %}
+					{% endfor %}
+					</p>
+					<p><span>{% translate 'Язык публикации' 'Publication lang' %}:</span> {{ r.langPubl }} </p>
+					<p><span>{% translate 'Скачать' 'Download' %}:</span> <a target='_blank'  href="{{ r.pdf.url }}"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a></a></p>
+				</div>
+			{% endfor %}
+    		</div>
+    	</div>
+		{% endif %}
+		{% if videos %}
+    	<h1>Видео</h1>
+    	<div class="videos">
+    		<div class="event-details">
+				<span></span>
+				{% for v in videos %}
+					<div class="specific-video">
+						<div class="video-description">
+							<h3>{% default_translate v.rus_title v.eng_title v.eng_title v.rus_title%}</h3>
+							<p>{% default_translate v.rus_description v.eng_description v.eng_description v.rus_description%}</p>
+							<p id="vid-y">{% default_translate v.get_rus_date v.get_eng_date "" "" %}</p>
+						</div>
+						<div class="video-thumb">
+							<iframe width="450" height="253.125" src="{{v.youtube_embedding_url}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+						</div>
+					</div>
+				{% endfor %}
+    		</div>
+    	</div>
+		{% endif %}
+    </div>
+
+{% endblock %}
