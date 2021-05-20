@@ -4,5 +4,6 @@
 **/__pycache__
 **/.idea
 .env*
+*.zip
 elibrary/mediafiles/journals/*
 elibrary/mediafiles/events/*

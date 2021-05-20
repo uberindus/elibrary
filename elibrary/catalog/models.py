@@ -115,7 +115,7 @@ class Issue(models.Model):
         return reverse('issue_details', kwargs={'id': self.pk})
 
     def __str__(self):
-        return "journal - %s | dateUni - %s volume - %s, number - %s" % (self.journal.rus_title, self.dateUni, self.volume, self.number)
+        return "journal - %s | dateUni - %s, volume - %s, number - %s" % (self.journal.rus_title, self.dateUni, self.volume, self.number)
 
     class Meta:
         ordering = ['dateUni', 'volume', 'number']
@@ -217,6 +217,10 @@ class ScienceEvent(models.Model):
     def get_url(self):
         return reverse('event_details', kwargs={'id': self.pk})
 
+    def __str__(self):
+        return self.rus_title
+
+
 
 class Rubric(models.Model):
     name = models.CharField(max_length=10, choices=[('chm', 'chemistry'), ('blg', 'biology'), ('phl', 'physiology')],
@@ -227,7 +231,7 @@ class Rubric(models.Model):
     videos = models.ManyToManyField(Video, blank=True, related_name="rubrics", null=True)
 
     def __str__(self):
-        return str(self.name)
+        return self.name
 
 
 class Report(models.Model):

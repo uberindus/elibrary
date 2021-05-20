@@ -43,7 +43,6 @@ class Command(BaseCommand):
         for k, file in enumerate(glob.glob("*.xml")):
             _parse(file)
             logger.info(str(k+1) + " - xml is parsed.")
-            k += 1
 
 
 @transaction.atomic
@@ -225,7 +224,7 @@ class ArticleParser(xmlparser.AbstractDjangoParser):
 
     Model = Article
     external_data = {"journal", "issue", "rus_section", "eng_section"}
-    xml_data = {"rus_section", "eng_section",
+    data = {"rus_section", "eng_section",
                  "artType", "langPubl", "rus_title", "eng_title",
                  "rus_annotation", "eng_annotation", "furl", "pdf_name",
                  "journal", "issue"}
@@ -263,7 +262,7 @@ class ArticleParser(xmlparser.AbstractDjangoParser):
 
         old_articles = self.Model.objects.filter(rus_title__iexact=self._get_model_param("rus_title"))
         if len(old_articles) > 1:
-            print(f"\n\n\n\n\n WARNING! {len(old_articles)} articles were detected with the same rus_title \n\n\n\n\n")
+            print(f"\n\n WARNING! {len(old_articles)} articles were detected with the same rus_title \n\n")
         if len(old_articles) > 2:
             self.model = old_articles[1]
         else:
@@ -278,7 +277,7 @@ class AuthorParser(xmlparser.AbstractDjangoParser):
 
     Model = Author
 
-    xml_data = {"rus_surname", "eng_surname",
+    data = {"rus_surname", "eng_surname",
                  "rus_initials", "eng_initials",
                 "rus_affilation", "eng_affilation",
                 "num", "article"}
@@ -303,7 +302,7 @@ class KeywordParser(xmlparser.AbstractDjangoParser):
 
     Model = Keyword
     external_data = {"article", "lang"}
-    xml_data = {"article", "lang", "formated_word"}
+    data = {"article", "lang", "formated_word"}
 
     @staticmethod
     def word_from(formated_word):

@@ -1,5 +1,6 @@
 from django.contrib import admin
 from catalog.models import *
+import nested_admin
 
 class RubricListFilter(admin.SimpleListFilter):
     # Human-readable title which will be displayed in the
@@ -46,8 +47,6 @@ class RubricListFilter(admin.SimpleListFilter):
             return queryset.filter(rubrics__name="phl")
 
 
-import nested_admin
-
 class AuthorInline(nested_admin.NestedTabularInline):
     model = Author
 
@@ -69,6 +68,10 @@ class JournalAdmin(admin.ModelAdmin):
 
 class IssueAdmin(nested_admin.NestedModelAdmin):
     inlines = [ArticleInline]
+
+    list_filter = ('journal',)
+    search_fields = ('dateUni',)
+
 
 class ScienceEventAdmin(admin.ModelAdmin):
     list_filter = (RubricListFilter,)

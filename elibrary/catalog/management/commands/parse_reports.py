@@ -43,7 +43,6 @@ class Command(BaseCommand):
         for k, file_name in enumerate(glob.glob("*.xml")):
             _parse(file_name)
             logger.info(str(k+1) + " - xml is parsed.")
-            k += 1
 
 
 @transaction.atomic
@@ -96,7 +95,7 @@ def _parse(file):
 class ScienceEventParser(xmlparser.AbstractDjangoParser):
 
     Model = ScienceEvent
-    xml_data = {"titleid", "rus_title"}
+    data = {"titleid", "rus_title"}
     model_params = {"pk", "rus_title"}
 
     class NoPrimaryKey(TypeError):
@@ -148,7 +147,7 @@ class AuthorParser(xmlparser.AbstractDjangoParser):
 
     Model = Author
 
-    xml_data = {"rus_surname", "eng_surname",
+    data = {"rus_surname", "eng_surname",
                  "rus_initials", "eng_initials",
                 "rus_affilation", "eng_affilation",
                 "num", "report"}
